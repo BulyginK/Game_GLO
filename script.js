@@ -4,18 +4,22 @@ const isNamber = function(num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
-function question() {
-    const a = 11;
+const game = function() {
+    const randomNamber = Math.ceil(Math.random() * 100 + 1);
+    return randomNamber;
+}
+
+function question(a) {
     let number = prompt("Угадай число от 1 до 100");
         
     function more() {
         alert("Загаданное число меньше");
-        question();
+        question(a);
     }
 
     function less() {
         alert("Загаданное число больше");
-        question();
+        question(a);
     }
 
     function end() {
@@ -27,7 +31,6 @@ function question() {
     } else {
         while (!isNamber(number)) {
             number = prompt("Введи число!");
-            console.log(number);
             while (number === null) {
                 end();
                 return
@@ -44,4 +47,4 @@ function question() {
 }
 
 isNamber();
-question();
+question(game());
