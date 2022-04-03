@@ -53,7 +53,6 @@ function question(a) {
         alert("Игра окончена");
     }
 
-
     if (number === null) {
         end();
     } else {
