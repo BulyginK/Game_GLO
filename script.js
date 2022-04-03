@@ -1,30 +1,58 @@
 'use strict';
 
+let attempt = 0;
+
 const isNamber = function(num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
 const game = function() {
-    const randomNamber = Math.ceil(Math.random() * 100 + 1);
+    const randomNamber = Math.ceil(Math.random() * 99 + 1);
+    console.log(randomNamber);
     return randomNamber;
+}
+
+const counter = function() {
+    attempt = attempt + 1;
+    console.log(attempt);
+    return;
 }
 
 function question(a) {
     let number = prompt("Угадай число от 1 до 100");
-        
+    
+    function check() {
+        if (attempt < 10) {
+            return
+        } else {
+            beOver();
+        }
+    }
+
     function more() {
-        alert("Загаданное число меньше");
+        alert("Загаданное число меньше, осталось попыток " + (10 - attempt));
         question(a);
     }
 
     function less() {
-        alert("Загаданное число больше");
+        alert("Загаданное число больше, осталось попыток " + (10 - attempt));
         question(a);
+    }
+
+    function beOver() {
+        if (confirm("Попытки закончились, хотите сыграть еще?")) {
+            attempt = 0;
+            game();
+            question(a);
+        } else {
+            alert("Игра окончена");
+        }
     }
 
     function end() {
         alert("Игра окончена");
     }
+
 
     if (number === null) {
         end();
@@ -36,12 +64,20 @@ function question(a) {
                 return
             }
         }
+        counter();
+        check();
         if (number > a) {
             more();
         } else if (number < a) {
             less();
         } else {
-            alert("Поздравляю, Вы угадали!!!");
+            if (confirm("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?")) {
+                attempt = 0;
+                game();
+                question(a);
+            } else {
+                end();
+            }
         }
     }
 }
