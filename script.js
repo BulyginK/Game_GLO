@@ -14,7 +14,6 @@ const game = function() {
 
 const counter = function() {
     attempt = attempt + 1;
-    console.log(attempt);
     return;
 }
 
@@ -42,10 +41,7 @@ function question(a) {
     function beOver() {
         if (confirm("Попытки закончились, хотите сыграть еще?")) {
             attempt = 0;
-            game();
-            question(a);
-        } else {
-            alert("Игра окончена");
+            question(game());
         }
     }
 
@@ -63,17 +59,20 @@ function question(a) {
                 return
             }
         }
+
         counter();
         check();
-        if (number > a) {
+
+        if (attempt == 10) {
+            end();
+        } else if (number > a) {
             more();
         } else if (number < a) {
             less();
-        } else {
+        } else if (number == a){
             if (confirm("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?")) {
                 attempt = 0;
-                game();
-                question(a);
+                question(game());
             } else {
                 end();
             }
